@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JaulyFresh Smart Thermostat</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    padding: 20px;
+    background: #101b29;
+    color: #eef5ff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.brand {
+    color: #65d8ed;
+    font-size: 23px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    margin-top: 12px;
+}
+
+.subtitle {
+    color: #9aafc5;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-top: 5px;
+}
+
+.temperature {
+    font-size: 92px;
+    font-weight: bold;
+    margin: 22px 0 0;
+    line-height: 1.1;
+}
+
+.target {
+    color: #9aafc5;
+    font-size: 15px;
+    margin: 8px 0 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.card {
+    background: #1d3045;
+    border: 1px solid #30445a;
+    border-radius: 12px;
+    padding: 13px 5px;
+}
+
+.label {
+    color: #8faac4;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.value {
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.footer {
+    color: #718ba5;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-top: 24px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="brand">JAULYFRESH</div>
+<div class="subtitle">SMART HOME CLIMATE CONTROL</div>
+
+<div class="temperature" id="temp">70°F</div>
+<div class="target">
+    TARGET TEMPERATURE: <span id="target">72°F</span>
+</div>
+
+<div class="grid">
+
+    <div class="card">
+        <div class="label">SL TIME</div>
+        <div class="value" id="time">--:--</div>
+    </div>
+
+    <div class="card">
+        <div class="label">WEATHER</div>
+        <div class="value" id="weather">Sunny</div>
+    </div>
+
+    <div class="card">
+        <div class="label">HUMIDITY</div>
+        <div class="value" id="humidity">45%</div>
+    </div>
+
+    <div class="card">
+        <div class="label">AIR QUALITY</div>
+        <div class="value" id="air">Good</div>
+    </div>
+
+    <div class="card">
+        <div class="label">FAN STATUS</div>
+        <div class="value" id="fan">IDLE</div>
+    </div>
+
+    <div class="card">
+        <div class="label">SCHEDULE</div>
+        <div class="value" id="schedule">DAY</div>
+    </div>
+
+</div>
+
+<div class="footer">JAULYFRESH HOME SYSTEMS</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+function showValue(id, parameter, fallback) {
+    const value = params.get(parameter);
+    if (value !== null && value !== "") {
+        document.getElementById(id).textContent = value;
+    } else {
+        document.getElementById(id).textContent = fallback;
+    }
+}
+
+showValue("temp", "temp", "70°F");
+showValue("target", "target", "72°F");
+showValue("time", "time", "--:--");
+showValue("weather", "weather", "Sunny");
+showValue("humidity", "humidity", "45%");
+showValue("air", "air", "Good");
+showValue("fan", "fan", "IDLE");
+showValue("schedule", "schedule", "DAY");
+</script>
+
+</body>
+</html>
