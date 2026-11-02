@@ -3,103 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOVAIR | Smart Climate</title>
+<title>JaulyFresh | Spring Smart Thermostat</title>
 <style>
-:root {
-  --cyan:#25f4ff; --pink:#ff3cac; --purple:#a855f7; --blue:#477bff;
-  --ink:#070812; --panel:#111426; --muted:#9298b7; --white:#f7f7ff;
+:root{
+  --ink:#27345f; --muted:#66749a; --pink:#e98fb4; --lav:#a995d4;
+  --blue:#8fc8e8; --cream:#fffaf2; --glass:rgba(255,255,255,.78);
 }
-* { box-sizing:border-box; }
-html,body { margin:0; width:100%; min-height:100%; background:#050610; color:var(--white);
-  font-family:Arial,Helvetica,sans-serif; }
-body { display:flex; align-items:center; justify-content:center; padding:12px; }
-.thermostat {
-  width:min(100%,520px); min-height:496px; padding:17px; border-radius:25px;
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;font-family:Arial,Helvetica,sans-serif}
+body{
+  display:flex;align-items:center;justify-content:center;padding:10px;
+  background:linear-gradient(135deg,#fbe3ed,#e3f2ff 55%,#f8f0d9);
+  color:var(--ink)
+}
+.thermostat{
+  width:min(100%,520px); min-height:496px; padding:15px;
+  border-radius:28px; position:relative; overflow:hidden;
+  background:linear-gradient(145deg,#fffdf8,#f7e9f1 55%,#e9f4fb);
+  border:2px solid rgba(255,255,255,.95);
+  box-shadow:0 12px 34px rgba(100,91,137,.22),inset 0 0 0 1px rgba(221,185,205,.45);
+}
+.thermostat:before{
+  content:"";position:absolute;inset:9px;border-radius:21px;
   background:
-    radial-gradient(ellipse at 8% 0%,rgba(37,244,255,.16),transparent 36%),
-    radial-gradient(ellipse at 100% 20%,rgba(255,60,172,.14),transparent 35%),
-    linear-gradient(145deg,#11152a,#080914 70%);
-  border:1px solid rgba(135,147,255,.32);
-  box-shadow:0 0 18px rgba(37,244,255,.12),0 0 36px rgba(168,85,247,.12),inset 0 0 22px rgba(255,255,255,.025);
-  position:relative; overflow:hidden;
+    linear-gradient(rgba(255,255,255,.45),rgba(255,255,255,.55)),
+    url("spring-floral-bg.jpg") center/cover;
+  border:1px solid rgba(255,255,255,.9);
 }
-.thermostat:before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.16;
-  background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.04) 4px); }
-header,.hero,.stats,.controls,.foot { position:relative; z-index:1; }
-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:13px; }
-.brand { font-size:25px; font-weight:900; letter-spacing:4px;
-  background:linear-gradient(90deg,var(--cyan),var(--blue),var(--purple),var(--pink));
-  -webkit-background-clip:text; background-clip:text; color:transparent; }
-.sub { color:#aeb3d0; font-size:8px; letter-spacing:2px; margin-top:3px; }
-.online { border:1px solid rgba(37,244,255,.65); color:var(--cyan); border-radius:20px;
-  padding:6px 9px; font-size:8px; letter-spacing:1.5px; box-shadow:0 0 10px rgba(37,244,255,.18); }
-.online i { display:inline-block; width:6px;height:6px;border-radius:50%;background:var(--cyan);margin-right:5px;box-shadow:0 0 7px var(--cyan); }
-.hero { text-align:center; padding:9px 0 12px; border-top:1px solid rgba(255,255,255,.08); border-bottom:1px solid rgba(255,255,255,.08); }
-.label { color:#aab0d0; font-size:9px; letter-spacing:2.5px; }
-.temperature { font-size:78px; line-height:1.02; font-weight:300; letter-spacing:-4px; margin:3px 0 5px;
-  text-shadow:0 0 14px rgba(37,244,255,.4),0 0 30px rgba(71,123,255,.25); }
-.temperature .degree { font-size:35px; vertical-align:top; letter-spacing:0; color:var(--cyan); }
-.targetline { display:flex; justify-content:center; align-items:center; gap:9px; color:#c6c9df; font-size:11px; }
-.targetline strong { color:var(--pink); font-size:16px; text-shadow:0 0 10px rgba(255,60,172,.4); }
-.schedule { display:inline-block; margin-top:9px; padding:5px 13px; border-radius:20px;
-  color:#e8dcff; background:rgba(168,85,247,.13); border:1px solid rgba(168,85,247,.5);
-  font-size:9px; letter-spacing:1.5px; }
-.stats { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; margin:12px 0; }
-.stat { min-width:0; padding:10px 5px 9px; border-radius:12px; text-align:center;
-  background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.018));
-  border:1px solid rgba(255,255,255,.09); }
-.stat .ico { font-size:15px; margin-bottom:5px; }
-.stat .name { color:#8f96b8; font-size:7px; letter-spacing:1px; margin-bottom:5px; }
-.stat .value { color:#f4f3ff; font-size:10px; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.controls-title { text-align:center; color:#9298b7; font-size:8px; letter-spacing:2px; margin:11px 0 8px; }
-.controls { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
-.control { appearance:none; border-radius:12px; min-height:49px; cursor:pointer; color:white;
-  background:#0b0e1c; font-weight:bold; font-size:10px; letter-spacing:1.5px;
-  transition:transform .12s,filter .12s,background .12s; }
-.control:active { transform:scale(.96); filter:brightness(1.35); }
-.control span { display:block; font-size:17px; line-height:18px; margin-bottom:2px; }
-.up { border:1px solid var(--cyan); color:var(--cyan); box-shadow:inset 0 0 12px rgba(37,244,255,.09),0 0 10px rgba(37,244,255,.1); }
-.down { border:1px solid var(--pink); color:var(--pink); box-shadow:inset 0 0 12px rgba(255,60,172,.09),0 0 10px rgba(255,60,172,.1); }
-.fan { border:1px solid var(--purple); color:#c99aff; box-shadow:inset 0 0 12px rgba(168,85,247,.09),0 0 10px rgba(168,85,247,.1); }
-.foot { display:flex; justify-content:space-between; margin-top:11px; color:#656d91; font-size:7px; letter-spacing:1px; }
-#notice { color:var(--cyan); text-align:center; font-size:8px; min-height:11px; margin-top:5px; }
-@media(max-width:380px) {
- .thermostat{padding:13px;min-height:0}.brand{font-size:21px}.temperature{font-size:68px}
- .stats{gap:5px}.stat{padding:9px 3px}.stat .value{font-size:9px}
+header,.hero,.stats,.controls-title,.controls,#notice,.foot{position:relative;z-index:1}
+header{display:flex;justify-content:space-between;align-items:center;margin:2px 3px 12px}
+.brand{font-family:Georgia,serif;font-size:27px;font-style:italic;font-weight:bold;color:#66518e;text-shadow:0 1px 0 white}
+.sub{font-size:8px;letter-spacing:2px;color:#68749a;margin-top:2px}
+.online{padding:6px 10px;border-radius:20px;background:rgba(255,255,255,.8);border:1px solid #b8dfd4;color:#4f927f;font-size:8px;letter-spacing:1.2px}
+.online i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#79c6a9;margin-right:5px}
+.hero{text-align:center;padding:10px 8px 13px;border-top:1px solid rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.30);border-radius:18px}
+.label{font-size:9px;letter-spacing:2px;color:#6d7899}
+.temperature{font-size:78px;line-height:1.03;font-weight:700;letter-spacing:-4px;margin:2px 0;color:#29365f;text-shadow:0 2px 0 white,0 4px 12px rgba(117,116,157,.18)}
+.temperature .degree{font-size:34px;vertical-align:top;letter-spacing:0;color:#8d78b8}
+.targetline{display:flex;justify-content:center;align-items:center;gap:8px;color:#66749a;font-size:11px}
+.targetline strong{font-size:16px;color:#c46f9a;background:rgba(255,255,255,.78);padding:5px 13px;border-radius:18px;border:1px solid #f4c8dc}
+.schedule{display:inline-block;margin-top:9px;padding:5px 13px;border-radius:20px;color:#6e6395;background:rgba(255,255,255,.78);border:1px solid #d9c9eb;font-size:9px;letter-spacing:1.2px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:12px 0}
+.stat{min-width:0;padding:10px 4px 9px;border-radius:13px;text-align:center;background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.95);box-shadow:0 3px 10px rgba(112,103,145,.08)}
+.stat .ico{font-size:17px;margin-bottom:5px}
+.stat .name{color:#8b82a8;font-size:7px;letter-spacing:.8px;margin-bottom:5px}
+.stat .value{color:#34436d;font-size:10px;font-weight:bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.controls-title{text-align:center;color:#80779f;font-size:8px;letter-spacing:2px;margin:11px 0 8px}
+.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.control{appearance:none;border-radius:13px;min-height:48px;cursor:pointer;background:rgba(255,255,255,.86);font-weight:bold;font-size:10px;letter-spacing:1.2px;transition:transform .12s,filter .12s}
+.control:active{transform:scale(.96);filter:brightness(1.05)}
+.control span{display:block;font-size:17px;line-height:18px;margin-bottom:2px}
+.up{border:1px solid #91cce4;color:#558cad;box-shadow:0 3px 10px rgba(143,200,232,.2)}
+.down{border:1px solid #efb0c9;color:#bd7096;box-shadow:0 3px 10px rgba(233,143,180,.18)}
+.fan{border:1px solid #c2b1df;color:#8872b1;box-shadow:0 3px 10px rgba(169,149,212,.18)}
+#notice{color:#718b83;text-align:center;font-size:8px;min-height:11px;margin-top:5px}
+.foot{display:flex;justify-content:space-between;margin:10px 3px 0;color:#817d9b;font-size:7px;letter-spacing:.8px}
+@media(max-width:380px){
+ .thermostat{padding:12px;min-height:0}.brand{font-size:22px}.temperature{font-size:67px}
+ .stats{gap:5px}.stat{padding:9px 2px}.stat .value{font-size:9px}
 }
 </style>
 </head>
 <body>
 <main class="thermostat">
-  <header>
-    <div><div class="brand">NOVAIR</div><div class="sub">SMART CLIMATE SYSTEMS</div></div>
-    <div class="online"><i></i>ONLINE</div>
-  </header>
-
-  <section class="hero">
-    <div class="label">INDOOR TEMPERATURE</div>
-    <div class="temperature"><span id="temp">70°F</span></div>
-    <div class="targetline">TARGET <strong id="target">72°F</strong></div>
-    <div class="schedule" id="schedule">DAY SCHEDULE</div>
-  </section>
-
-  <section class="stats">
-    <div class="stat"><div class="ico">◉</div><div class="name">WEATHER</div><div class="value" id="weather">Sunny</div></div>
-    <div class="stat"><div class="ico">≋</div><div class="name">HUMIDITY</div><div class="value" id="humidity">45%</div></div>
-    <div class="stat"><div class="ico">✧</div><div class="name">AIR QUALITY</div><div class="value" id="air">Good</div></div>
-    <div class="stat"><div class="ico">◌</div><div class="name">FAN</div><div class="value" id="fan">IDLE</div></div>
-  </section>
-
-  <div class="controls-title">TOUCH CONTROL</div>
-  <section class="controls">
-    <button class="control up" id="up" type="button"><span>＋</span>UP</button>
-    <button class="control down" id="down" type="button"><span>－</span>DOWN</button>
-    <button class="control fan" id="fanButton" type="button"><span>✳</span>FAN</button>
-  </section>
-  <div id="notice">SYSTEM READY</div>
-  <footer class="foot"><span>NOVAIR // CLIMATE INTERFACE</span><span id="time">--:--</span></footer>
+<header>
+  <div><div class="brand">JaulyFresh</div><div class="sub">SPRING SMART THERMOSTAT</div></div>
+  <div class="online"><i></i>ONLINE</div>
+</header>
+<section class="hero">
+  <div class="label">INDOOR TEMPERATURE</div>
+  <div class="temperature"><span id="temp">70°F</span></div>
+  <div class="targetline">TARGET <strong id="target">72°F</strong></div>
+  <div class="schedule" id="schedule">DAY</div>
+</section>
+<section class="stats">
+  <div class="stat"><div class="ico">☀️</div><div class="name">WEATHER</div><div class="value" id="weather">Sunny</div></div>
+  <div class="stat"><div class="ico">💧</div><div class="name">HUMIDITY</div><div class="value" id="humidity">45%</div></div>
+  <div class="stat"><div class="ico">🌿</div><div class="name">AIR QUALITY</div><div class="value" id="air">Good</div></div>
+  <div class="stat"><div class="ico">✿</div><div class="name">FAN</div><div class="value" id="fan">IDLE</div></div>
+</section>
+<div class="controls-title">THERMOSTAT CONTROLS</div>
+<section class="controls">
+  <button class="control up" id="up" type="button"><span>＋</span>UP</button>
+  <button class="control fan" id="fanButton" type="button"><span>✿</span>FAN</button>
+  <button class="control down" id="down" type="button"><span>－</span>DOWN</button>
+</section>
+<div id="notice">SPRING MODE • SYSTEM READY</div>
+<footer class="foot"><span>JAULYFRESH // SMART CLIMATE</span><span id="time">--:--</span></footer>
 </main>
-
 <script>
 const params = new URLSearchParams(window.location.search);
 function showValue(id, parameter, fallback) {
@@ -114,29 +105,29 @@ showValue("humidity", "humidity", "45%");
 showValue("air", "air", "Good");
 showValue("fan", "fan", "IDLE");
 showValue("schedule", "schedule", "DAY");
+
 const targetElement = document.getElementById("target");
 const notice = document.getElementById("notice");
 function numericTarget() {
   const match = targetElement.textContent.match(/-?\d+/);
   return match ? parseInt(match[0], 10) : 72;
 }
-function setTarget(value) {
-  targetElement.textContent = value + "°F";
-}
+function setTarget(value) { targetElement.textContent = value + "°F"; }
+
 document.getElementById("up").addEventListener("click", () => {
   setTarget(Math.min(85, numericTarget() + 1));
-  notice.textContent = "TARGET ADJUSTED • IN-WORLD LINK NOT CONNECTED";
+  notice.textContent = "SCREEN PREVIEW ONLY • USE IN-WORLD BUTTON";
 });
 document.getElementById("down").addEventListener("click", () => {
   setTarget(Math.max(55, numericTarget() - 1));
-  notice.textContent = "TARGET ADJUSTED • IN-WORLD LINK NOT CONNECTED";
+  notice.textContent = "SCREEN PREVIEW ONLY • USE IN-WORLD BUTTON";
 });
 document.getElementById("fanButton").addEventListener("click", () => {
   const fan = document.getElementById("fan");
   const modes = ["AUTO", "ON", "OFF"];
   const current = fan.textContent.trim().toUpperCase();
   fan.textContent = modes[(modes.indexOf(current) + 1 + modes.length) % modes.length];
-  notice.textContent = "FAN MODE PREVIEW • IN-WORLD LINK NOT CONNECTED";
+  notice.textContent = "SCREEN PREVIEW ONLY • USE IN-WORLD BUTTON";
 });
 </script>
 </body>
