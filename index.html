@@ -3,89 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JAULISTINE | Spring Smart Thermostat</title>
+<title>JaulyFresh | Spring Smart Thermostat</title>
 <style>
 :root{
-  --navy:#172c79; --blue:#238bc7; --pink:#f3a9c9; --lav:#bca5e9;
-  --cream:#fff8f4; --glass:rgba(255,255,255,.76);
+  --ink:#27345f; --muted:#66749a; --pink:#e98fb4; --lav:#a995d4;
+  --blue:#8fc8e8; --cream:#fffaf2; --glass:rgba(255,255,255,.78);
 }
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;min-height:100%;font-family:Arial,Helvetica,sans-serif}
 body{
-  display:flex;align-items:center;justify-content:center;min-height:100vh;padding:12px;
-  background:linear-gradient(135deg,#f5dbe5,#dcecff 52%,#fff0d9);color:var(--navy)
+  display:flex;align-items:center;justify-content:center;padding:10px;
+  background:linear-gradient(135deg,#fbe3ed,#e3f2ff 55%,#f8f0d9);
+  color:var(--ink)
 }
 .thermostat{
-  width:min(100%,1180px); aspect-ratio:1.43; min-height:490px; padding:clamp(14px,2.2vw,30px);
-  position:relative;overflow:hidden;border-radius:clamp(24px,4vw,54px);
-  background:linear-gradient(145deg,#fffaf5 0%,#f8e5ed 52%,#e7edff 100%);
-  border:3px solid rgba(255,255,255,.96);
-  box-shadow:0 18px 48px rgba(75,64,106,.24),inset 0 0 0 2px rgba(222,183,206,.48),inset 0 -8px 18px rgba(176,155,201,.12)
+  width:min(100%,520px); min-height:496px; padding:15px;
+  border-radius:28px; position:relative; overflow:hidden;
+  background:linear-gradient(145deg,#fffdf8,#f7e9f1 55%,#e9f4fb);
+  border:2px solid rgba(255,255,255,.95);
+  box-shadow:0 12px 34px rgba(100,91,137,.22),inset 0 0 0 1px rgba(221,185,205,.45);
 }
 .thermostat:before{
-  content:"";position:absolute;inset:clamp(9px,1.3vw,17px);border-radius:clamp(19px,3vw,39px);
-  background:linear-gradient(90deg,rgba(255,255,255,.08),rgba(255,255,255,.28)),url("spring-floral-bg.png") center/cover;
-  border:3px solid rgba(255,255,255,.95);box-shadow:inset 0 0 0 2px rgba(35,48,110,.14),0 0 0 2px rgba(233,170,205,.34)
+  content:"";position:absolute;inset:9px;border-radius:21px;
+  background:
+    linear-gradient(rgba(255,255,255,.45),rgba(255,255,255,.55)),
+    url("spring-floral-bg.jpg") center/cover;
+  border:1px solid rgba(255,255,255,.9);
 }
-.screen{
-  position:relative;z-index:1;height:100%;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(245px,.8fr);
-  grid-template-rows:auto 1fr;gap:clamp(12px,2vw,24px);padding:clamp(12px,2vw,25px)
+header,.hero,.stats,.controls-title,.controls,#notice,.foot{position:relative;z-index:1}
+header{display:flex;justify-content:space-between;align-items:center;margin:2px 3px 12px}
+.brand{font-family:Georgia,serif;font-size:27px;font-style:italic;font-weight:bold;color:#66518e;text-shadow:0 1px 0 white}
+.sub{font-size:8px;letter-spacing:2px;color:#68749a;margin-top:2px}
+.online{padding:6px 10px;border-radius:20px;background:rgba(255,255,255,.8);border:1px solid #b8dfd4;color:#4f927f;font-size:8px;letter-spacing:1.2px}
+.online i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#79c6a9;margin-right:5px}
+.hero{text-align:center;padding:10px 8px 13px;border-top:1px solid rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.30);border-radius:18px}
+.label{font-size:9px;letter-spacing:2px;color:#6d7899}
+.temperature{font-size:78px;line-height:1.03;font-weight:700;letter-spacing:-4px;margin:2px 0;color:#29365f;text-shadow:0 2px 0 white,0 4px 12px rgba(117,116,157,.18)}
+.temperature .degree{font-size:34px;vertical-align:top;letter-spacing:0;color:#8d78b8}
+.targetline{display:flex;justify-content:center;align-items:center;gap:8px;color:#66749a;font-size:11px}
+.targetline strong{font-size:16px;color:#c46f9a;background:rgba(255,255,255,.78);padding:5px 13px;border-radius:18px;border:1px solid #f4c8dc}
+.schedule{display:inline-block;margin-top:9px;padding:5px 13px;border-radius:20px;color:#6e6395;background:rgba(255,255,255,.78);border:1px solid #d9c9eb;font-size:9px;letter-spacing:1.2px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:12px 0}
+.stat{min-width:0;padding:10px 4px 9px;border-radius:13px;text-align:center;background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.95);box-shadow:0 3px 10px rgba(112,103,145,.08)}
+.stat .ico{font-size:17px;margin-bottom:5px}
+.stat .name{color:#8b82a8;font-size:7px;letter-spacing:.8px;margin-bottom:5px}
+.stat .value{color:#34436d;font-size:10px;font-weight:bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.controls-title{text-align:center;color:#80779f;font-size:8px;letter-spacing:2px;margin:11px 0 8px}
+.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.control{appearance:none;border-radius:13px;min-height:48px;cursor:pointer;background:rgba(255,255,255,.86);font-weight:bold;font-size:10px;letter-spacing:1.2px;transition:transform .12s,filter .12s}
+.control:active{transform:scale(.96);filter:brightness(1.05)}
+.control span{display:block;font-size:17px;line-height:18px;margin-bottom:2px}
+.up{border:1px solid #91cce4;color:#558cad;box-shadow:0 3px 10px rgba(143,200,232,.2)}
+.down{border:1px solid #efb0c9;color:#bd7096;box-shadow:0 3px 10px rgba(233,143,180,.18)}
+.fan{border:1px solid #c2b1df;color:#8872b1;box-shadow:0 3px 10px rgba(169,149,212,.18)}
+#notice{color:#718b83;text-align:center;font-size:8px;min-height:11px;margin-top:5px}
+.foot{display:flex;justify-content:space-between;margin:10px 3px 0;color:#817d9b;font-size:7px;letter-spacing:.8px}
+@media(max-width:380px){
+ .thermostat{padding:12px;min-height:0}.brand{font-size:22px}.temperature{font-size:67px}
+ .stats{gap:5px}.stat{padding:9px 2px}.stat .value{font-size:9px}
 }
-header{grid-column:1/-1;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:0 2%;}
-.brand-wrap{min-width:0}
-.brand{font-family:"Brush Script MT","Segoe Script",cursive;font-size:clamp(36px,5.3vw,76px);line-height:.98;font-style:italic;font-weight:600;letter-spacing:-2px;color:#172b83;text-shadow:0 2px 0 rgba(255,255,255,.9),0 4px 8px rgba(45,44,113,.16)}
-.sub{font-size:clamp(12px,1.6vw,22px);font-weight:600;letter-spacing:.03em;color:#1c347e;margin:4px 0 0 20%;text-shadow:0 1px 0 white}
-.clock{text-align:left;flex:0 0 auto;padding:4px 1% 0;color:#182f82;text-shadow:0 1px 0 white}
-.clock-label{font-size:clamp(14px,2.1vw,28px);font-weight:600}
-.clock-value{font-size:clamp(31px,4.1vw,58px);line-height:1.05;font-weight:750;letter-spacing:-1px;font-variant-numeric:tabular-nums}
-.main-readout{display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:0;padding:0 2% 3%;text-align:center}
-.temp-label{font-size:clamp(11px,1.4vw,18px);letter-spacing:.16em;font-weight:700;color:#344a8b;text-shadow:0 1px 0 white}
-.temperature{font-size:clamp(100px,17vw,230px);line-height:.92;font-weight:800;letter-spacing:-.075em;color:#111d52;text-shadow:0 3px 0 rgba(255,255,255,.85),0 8px 16px rgba(30,35,90,.24);white-space:nowrap}
-.temperature .degree{font-size:.48em;vertical-align:top;letter-spacing:-.02em;margin-left:.04em}
-.targetline{margin-top:clamp(10px,1.5vw,20px);padding:clamp(7px,1vw,13px) clamp(22px,3vw,42px);border-radius:40px;background:linear-gradient(100deg,rgba(255,224,243,.94),rgba(255,255,255,.9),rgba(221,208,255,.94));border:2px solid rgba(255,255,255,.98);box-shadow:0 5px 14px rgba(94,74,143,.18);font-size:clamp(18px,2.6vw,34px);font-weight:500;color:#26387f;white-space:nowrap}
-.targetline strong{font-weight:800}
-.spring-vibes{margin-top:auto;align-self:flex-start;padding:0 0 0 5%;font-family:"Brush Script MT","Segoe Script",cursive;font-style:italic;font-size:clamp(30px,4.5vw,61px);color:white;text-shadow:0 2px 6px rgba(52,42,104,.45);white-space:nowrap}
-.info{display:flex;flex-direction:column;justify-content:center;gap:clamp(7px,1vw,13px);min-width:0;padding:3% 1% 4% 0}
-.info-card{display:grid;grid-template-columns:clamp(45px,5.6vw,72px) 1fr;align-items:center;gap:8px;min-height:clamp(62px,8.1vw,105px);padding:clamp(8px,1vw,13px) clamp(10px,1.4vw,18px);border-radius:clamp(14px,2vw,24px);background:rgba(255,255,255,.78);border:1.5px solid rgba(255,255,255,.98);box-shadow:0 4px 13px rgba(70,75,130,.12);backdrop-filter:blur(5px)}
-.icon{font-size:clamp(28px,3.6vw,48px);text-align:center;filter:drop-shadow(0 2px 2px rgba(60,60,100,.12))}
-.card-label{font-size:clamp(12px,1.8vw,24px);font-weight:600;line-height:1.15;color:#1b347e}
-.card-value{font-size:clamp(17px,2.5vw,33px);font-weight:800;line-height:1.12;color:#18327d;white-space:normal;overflow-wrap:anywhere}
-#air{color:#169766}
-.footer-note{position:absolute;right:3%;bottom:1%;font-size:clamp(8px,.9vw,12px);letter-spacing:.12em;color:rgba(26,47,112,.72);font-weight:700}
-@media(max-width:650px){
- body{padding:5px}.thermostat{aspect-ratio:auto;min-height:650px;border-radius:25px}.screen{grid-template-columns:1fr;grid-template-rows:auto auto auto;gap:10px;padding:12px}
- header{grid-column:1;align-items:center}.brand{font-size:clamp(34px,9vw,54px)}.sub{font-size:11px;margin-left:8%}.clock-label{font-size:14px}.clock-value{font-size:28px}
- .main-readout{min-height:240px;padding:8px 0}.temperature{font-size:clamp(105px,28vw,165px)}.spring-vibes{font-size:35px;margin-top:12px}
- .info{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0}.info-card{min-height:74px;grid-template-columns:38px 1fr;padding:8px}.icon{font-size:27px}.card-label{font-size:11px}.card-value{font-size:16px}.footer-note{display:none}
-}
-@media(max-width:380px){.thermostat{min-height:620px}.info-card{grid-template-columns:30px 1fr;gap:4px}.icon{font-size:23px}.card-label{font-size:10px}.card-value{font-size:14px}}
 </style>
 </head>
 <body>
-<main class="thermostat" aria-label="JAULISTINE Smart Thermostat">
- <div class="screen">
-  <header>
-   <div class="brand-wrap"><div class="brand">Jaulistine</div><div class="sub">SMART THERMOSTAT</div></div>
-   <div class="clock"><div class="clock-label">SL Time</div><div class="clock-value" id="time">--:--</div></div>
-  </header>
-  <section class="main-readout">
-   <div class="temp-label">INDOOR TEMPERATURE</div>
-   <div class="temperature"><span id="temp">70°F</span></div>
-   <div class="targetline">Target: <strong id="target">72°F</strong></div>
-   <div class="spring-vibes">Spring Vibes ♡</div>
-  </section>
-  <section class="info" aria-label="Thermostat information">
-   <div class="info-card"><div class="icon">🌤️</div><div><div class="card-label">Weather</div><div class="card-value" id="weather">Sunny</div></div></div>
-   <div class="info-card"><div class="icon">💧</div><div><div class="card-label">Humidity</div><div class="card-value" id="humidity">45%</div></div></div>
-   <div class="info-card"><div class="icon">💨</div><div><div class="card-label">Air Quality</div><div class="card-value" id="air">Good</div></div></div>
-   <div class="info-card"><div class="icon">✿</div><div><div class="card-label">Fan Status</div><div class="card-value" id="fan">AUTO</div></div></div>
-   <div class="info-card"><div class="icon">🗓️</div><div><div class="card-label">Schedule</div><div class="card-value" id="schedule">DAY</div></div></div>
-  </section>
-  <div class="footer-note">JAULISTINE · SPRING EDITION</div>
- </div>
+<main class="thermostat">
+<header>
+  <div><div class="brand">JaulyFresh</div><div class="sub">SPRING SMART THERMOSTAT</div></div>
+  <div class="online"><i></i>ONLINE</div>
+</header>
+<section class="hero">
+  <div class="label">INDOOR TEMPERATURE</div>
+  <div class="temperature"><span id="temp">70°F</span></div>
+  <div class="targetline">TARGET <strong id="target">72°F</strong></div>
+  <div class="schedule" id="schedule">DAY</div>
+</section>
+<section class="stats">
+  <div class="stat"><div class="ico">☀️</div><div class="name">WEATHER</div><div class="value" id="weather">Sunny</div></div>
+  <div class="stat"><div class="ico">💧</div><div class="name">HUMIDITY</div><div class="value" id="humidity">45%</div></div>
+  <div class="stat"><div class="ico">🌿</div><div class="name">AIR QUALITY</div><div class="value" id="air">Good</div></div>
+  <div class="stat"><div class="ico">✿</div><div class="name">FAN</div><div class="value" id="fan">IDLE</div></div>
+</section>
+<div class="controls-title">THERMOSTAT CONTROLS</div>
+<section class="controls">
+  <button class="control up" id="up" type="button"><span>＋</span>UP</button>
+  <button class="control fan" id="fanButton" type="button"><span>✿</span>FAN</button>
+  <button class="control down" id="down" type="button"><span>－</span>DOWN</button>
+</section>
+<div id="notice">SPRING MODE • SYSTEM READY</div>
+<footer class="foot"><span>JAULYFRESH // SMART CLIMATE</span><span id="time">--:--</span></footer>
 </main>
 <script>
-// Keep the exact query-string names and display IDs used by the existing LSL controller.
 const params = new URLSearchParams(window.location.search);
 function showValue(id, parameter, fallback) {
   const value = params.get(parameter);
@@ -97,8 +103,32 @@ showValue("time", "time", "--:--");
 showValue("weather", "weather", "Sunny");
 showValue("humidity", "humidity", "45%");
 showValue("air", "air", "Good");
-showValue("fan", "fan", "AUTO");
+showValue("fan", "fan", "IDLE");
 showValue("schedule", "schedule", "DAY");
+
+const targetElement = document.getElementById("target");
+const notice = document.getElementById("notice");
+function numericTarget() {
+  const match = targetElement.textContent.match(/-?\d+/);
+  return match ? parseInt(match[0], 10) : 72;
+}
+function setTarget(value) { targetElement.textContent = value + "°F"; }
+
+document.getElementById("up").addEventListener("click", () => {
+  setTarget(Math.min(85, numericTarget() + 1));
+  notice.textContent = "SCREEN PREVIEW ONLY • USE IN-WORLD BUTTON";
+});
+document.getElementById("down").addEventListener("click", () => {
+  setTarget(Math.max(55, numericTarget() - 1));
+  notice.textContent = "SCREEN PREVIEW ONLY • USE IN-WORLD BUTTON";
+});
+document.getElementById("fanButton").addEventListener("click", () => {
+  const fan = document.getElementById("fan");
+  const modes = ["AUTO", "ON", "OFF"];
+  const current = fan.textContent.trim().toUpperCase();
+  fan.textContent = modes[(modes.indexOf(current) + 1 + modes.length) % modes.length];
+  notice.textContent = "SCREEN PREVIEW ONLY • USE IN-WORLD BUTTON";
+});
 </script>
 </body>
 </html>
